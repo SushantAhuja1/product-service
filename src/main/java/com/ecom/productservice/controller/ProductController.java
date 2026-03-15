@@ -1,7 +1,9 @@
 package com.ecom.productservice.controller;
 
-import com.ecom.productservice.entity.Product;
+import com.ecom.productservice.dto.ProductRequestDTO;
+import com.ecom.productservice.dto.ProductResponseDTO;
 import com.ecom.productservice.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,17 +16,17 @@ public class ProductController {
     private final ProductService productService;
     //create-product-controller
     @PostMapping
-    public Product createProductController(@RequestBody Product product) {
-        return productService.createProduct(product);
+    public ProductResponseDTO createProductController(@Valid @RequestBody ProductRequestDTO productRequestDTO) {
+        return productService.createProduct(productRequestDTO);
     }
     //get-all-products-controller
     @GetMapping
-    public List<Product> getAllProductsController() {
+    public List<ProductResponseDTO> getAllProductsController() {
         return productService.getAllProducts();
     }
     //get-product-by-id-controller
     @GetMapping("/{productId}")
-    public Product getProductByIdController(@PathVariable Long productId) {
+    public ProductResponseDTO getProductByIdController(@PathVariable Long productId) {
         return productService.getProductById(productId);
     }
     //delete-product-by-id-controller
@@ -32,5 +34,10 @@ public class ProductController {
     public String deleteProductByIdController(@PathVariable Long productId) {
         productService.deleteProductById(productId);
         return "Product with id "+productId+" is deleted successfully";
+    }
+    //update-product-by-id-controller
+    @PutMapping("/{productId}")
+    public ProductResponseDTO updateProductByIdController(@PathVariable Long productId,@Valid @RequestBody ProductRequestDTO productRequestDTO) {
+        return productService.updateProductById(productId, productRequestDTO);
     }
 }

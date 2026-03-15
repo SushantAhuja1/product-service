@@ -1,16 +1,19 @@
 package com.ecom.productservice.service;
 
-import com.ecom.productservice.entity.Product;
+import com.ecom.productservice.dto.ProductRequestDTO;
+import com.ecom.productservice.dto.ProductResponseDTO;
 
 import java.util.List;
 
 public interface ProductService {
     //create-product-method
-    Product createProduct(Product product);
+    ProductResponseDTO createProduct(ProductRequestDTO productRequestDTO);
     //get-all-products-method
-    List<Product> getAllProducts();
+    List<ProductResponseDTO> getAllProducts();
     //get-product-by-id-method
-    Product getProductById(Long id);
+    ProductResponseDTO getProductById(Long id);
     //delete-product-by-id-method
     void deleteProductById(Long id);
+    //update-product-by-id-method
+    ProductResponseDTO updateProductById(Long id, ProductRequestDTO productRequestDTO);
 }
